@@ -10,5 +10,4 @@ import com.ujdev.kanbanproject.model.KanbanBoard;
 @Repository
 public interface KanbanBoardRepository extends JpaRepository<KanbanBoard, Integer> {
 
-    /*Optional<KanbanBoard> findById(Integer id);*/
 }
