@@ -1,6 +1,7 @@
 package com.ujdev.kanbanproject.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,5 +17,9 @@ public class KanbanBoardService {
 
     public List<KanbanBoard> getAllBoard(){
         return kanbanBoardRepository.findAll();
+    }
+
+    public Optional<KanbanBoard> getEachBoard(Integer id){
+        return kanbanBoardRepository.findById(id);
     }
 }
