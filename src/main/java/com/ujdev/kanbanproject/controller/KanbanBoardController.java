@@ -3,6 +3,7 @@ package com.ujdev.kanbanproject.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.ujdev.kanbanproject.model.KanbanBoardSchema;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +25,8 @@ public class KanbanBoardController {
     @GetMapping
     public ResponseEntity<?> getListOfBoards(){
         try {
-            List<KanbanBoard> boards = kanbanBoardService.getAllBoard();
-            return new ResponseEntity<List<KanbanBoard>>(boards, HttpStatus.OK);
+            List<KanbanBoardSchema> boards = kanbanBoardService.getAllBoard();
+            return new ResponseEntity<>(boards, HttpStatus.OK);
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
@@ -34,7 +35,7 @@ public class KanbanBoardController {
     @GetMapping("/{id}")
     public ResponseEntity<?> getBoard(@PathVariable Integer id){
         try {
-            Optional<KanbanBoard> board = kanbanBoardService.getEachBoard(id);
+            Optional<KanbanBoardSchema> board = kanbanBoardService.getEachBoard(id);
             if(board.isPresent()){
                 return new ResponseEntity<>(board, HttpStatus.OK);
             }
