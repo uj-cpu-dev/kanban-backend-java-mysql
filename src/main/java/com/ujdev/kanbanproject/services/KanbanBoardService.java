@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ujdev.kanbanproject.errorHandler.CustomException;
 import com.ujdev.kanbanproject.model.KanbanBoardSchema;
 import com.ujdev.kanbanproject.model.KanbanBoardSchemaColumnData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,5 +49,13 @@ public class KanbanBoardService {
         } else {
             return Optional.empty();
         }
+    }
+
+    public Optional<KanbanBoard> createNewBoard(KanbanBoard kanbanBoard){
+        Optional<KanbanBoard> getKanbanBoard = kanbanBoardRepository.findById(kanbanBoard.getId());
+        if(getKanbanBoard.isPresent()){
+            throw new CustomException("ID ALREADY EXISTS");
+        }
+        return Optional.of(kanbanBoardRepository.save(kanbanBoard));
     }
 }
