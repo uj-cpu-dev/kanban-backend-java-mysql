@@ -33,11 +33,7 @@ public class KanbanBoardController {
     public ResponseEntity<?> getBoard(@PathVariable Integer id){
         try {
             Optional<KanbanBoardSchema> board = kanbanBoardService.getEachBoard(id);
-            if(board.isPresent()){
-                return new ResponseEntity<>(board, HttpStatus.OK);
-            }
-            return ResponseEntity.badRequest().body("board cannot be found");
-            
+            return new ResponseEntity<>(board, HttpStatus.OK);
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
@@ -46,8 +42,8 @@ public class KanbanBoardController {
     @PostMapping
     public ResponseEntity<?> createNewBoard(@RequestBody KanbanBoard kanbanBoard){
         try{
-            Optional<KanbanBoard> createKanban = kanbanBoardService.createNewBoard(kanbanBoard);
-            return new ResponseEntity<>(createKanban, HttpStatus.CREATED);
+            kanbanBoardService.createNewBoard(kanbanBoard);
+            return new ResponseEntity<>("BOARD CREATED", HttpStatus.CREATED);
         }catch(Exception e){
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
@@ -56,11 +52,8 @@ public class KanbanBoardController {
     @PutMapping("/{id}")
     public ResponseEntity<?> updateBoard(@PathVariable Integer id, @RequestBody KanbanBoard kanbanBoard){
         try{
-            Optional<KanbanBoard> updateKanban = kanbanBoardService.updateBoard(id, kanbanBoard);
-            if (updateKanban.isPresent()){
-                return new ResponseEntity<>(updateKanban, HttpStatus.OK);
-            }
-            return ResponseEntity.badRequest().build();
+            kanbanBoardService.updateBoard(id, kanbanBoard);
+            return new ResponseEntity<>("BOARD UPDATED", HttpStatus.OK);
         } catch(Exception e){
             return ResponseEntity.internalServerError().body(e.getMessage());
         }

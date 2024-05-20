@@ -24,7 +24,7 @@ public class KanbanBoardService {
     public List<KanbanBoardSchema> getAllBoard() {
         List<KanbanBoard> kanbanBoardList = kanbanBoardRepository.findAll();
 
-        return kanbanBoardList.stream().map(schema-> convertSchema(schema)).collect(Collectors.toList());
+        return kanbanBoardList.stream().map(this::convertSchema).collect(Collectors.toList());
     }
 
     public KanbanBoardSchema convertSchema(KanbanBoard schema) {
@@ -47,7 +47,7 @@ public class KanbanBoardService {
             KanbanBoardSchema schema = convertSchema(kanbanBoard.get());
             return Optional.of(schema);
         } else {
-            return Optional.empty();
+            throw new CustomException("BOARD COULD NOT BE FOUND");
         }
     }
 
