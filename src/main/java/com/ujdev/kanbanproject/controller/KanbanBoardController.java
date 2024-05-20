@@ -52,5 +52,28 @@ public class KanbanBoardController {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateBoard(@PathVariable Integer id, @RequestBody KanbanBoard kanbanBoard){
+        try{
+            Optional<KanbanBoard> updateKanban = kanbanBoardService.updateBoard(id, kanbanBoard);
+            if (updateKanban.isPresent()){
+                return new ResponseEntity<>(updateKanban, HttpStatus.OK);
+            }
+            return ResponseEntity.badRequest().build();
+        } catch(Exception e){
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteBoardById(@PathVariable  Integer id){
+        try {
+            kanbanBoardService.deleteBoard(id);
+            return new ResponseEntity<>("BOARD DELETED", HttpStatus.OK);
+        } catch (Exception e){
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
+    }
     
 }

@@ -13,13 +13,14 @@ public class KanbanBoardSchema {
 
     private String board_name;
 
-    private boolean isActive;
+    private Boolean active;
 
     private List<KanbanBoardSchemaColumnData> columns;
 
-    public KanbanBoardSchema(Integer id, String boardName, List<KanbanBoardSchemaColumnData> columns) {
+    public KanbanBoardSchema(Integer id, String boardName, List<KanbanBoardSchemaColumnData> columns, Boolean active) {
         this.id = id;
         this.board_name = boardName;
         this.columns = columns;
+        this.active = active;
     }
 }
