@@ -24,7 +24,7 @@ public class KanbanBoard {
     private String board_name;
 
     @Column(name = "is_Active")
-    private boolean isActive;
+    private Boolean active;
 
     @Column(name = "columns")
     private String columns;
@@ -33,10 +33,10 @@ public class KanbanBoard {
         // Default constructor required by JPA
     }
 
-    public KanbanBoard(Integer id, String board_name, boolean isActive, String columns) {
+    public KanbanBoard(Integer id, String board_name, Boolean active, String columns) {
         this.id = id;
         this.board_name = board_name;
         this.columns = columns;
-        this.isActive = isActive;
+        this.active = active;
     }
 }
