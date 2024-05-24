@@ -1,17 +1,26 @@
-# Use an official OpenJDK runtime as a parent image
+# Stage 1: Build (unchanged)
 FROM eclipse-temurin:21-jdk-jammy
 
-# Set the working directory
 WORKDIR /app
 
-# Copy the wait-for-it script
 COPY wait-for-it.sh /app/wait-for-it.sh
 
-# Copy the project's JAR file to the container
 COPY target/kanban-project-0.0.1-SNAPSHOT.jar /app/app.jar
 
-# Expose the port the app runs on
 EXPOSE 8080
 
-# Run the wait-for-it script and then start the app
+# Stage 2: Test (new stage)
+STAGE test
+
+# Install dependencies for testing (if needed)
+RUN apt-get update && apt-get install -y maven  # Example: Install Maven for tests
+
+# Copy your test code and dependencies
+COPY test/ /app/test
+
+# Run your tests using the appropriate command (replace with your actual command)
+CMD ["mvn", "test"]
+
+# Stage 3: Run (unchanged)
+# (Rest of your existing Dockerfile content remains the same)
 ENTRYPOINT ["./wait-for-it.sh", "mysql:3306", "--", "java", "-jar", "/app/app.jar"]
