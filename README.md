@@ -1,3 +1,3 @@
-To start application
+To run application
 
 docker-compose up
